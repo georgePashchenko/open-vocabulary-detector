@@ -67,3 +67,17 @@ class MaskRCNNDetector:
 
     def postprocess(self, predicted_batch):
         return [{'instances': prediction['instances'].to('cpu')} for prediction in predicted_batch]
+
+
+class OVDDetector(MaskRCNNDetector):
+    def postprocess(self, predicted_batch):
+        outputs = []
+
+        for prediction in predicted_batch:
+            keys = list(prediction['instances'].get_fields().keys())
+            if 'box_features' in keys:
+                prediction['instances'].box_features = self.model.roi_heads.box_predictor.cls_score.get_clip_features(
+                    prediction['instances'].box_features)
+            outputs.append({'instances': prediction['instances'].to('cpu')})
+
+        return outputs
