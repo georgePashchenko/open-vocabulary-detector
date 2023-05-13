@@ -3,7 +3,9 @@ from detectron2.checkpoint import DetectionCheckpointer
 from detectron2.config import CfgNode
 from detectron2.modeling import build_model
 
-from src.utils import maybe_download
+from .utils import maybe_download_model
+
+MODELS_DIR = 'model_weights'
 
 
 class MaskRCNNDetector:
@@ -17,7 +19,7 @@ class MaskRCNNDetector:
 
     def init_model(self):
         model = build_model(self.config)
-        weights_local_path = maybe_download('model_weights', self.config.MODEL.WEIGHTS)
+        weights_local_path = maybe_download_model(self.config.MODEL.WEIGHTS, MODELS_DIR)
         DetectionCheckpointer(model).load(weights_local_path)
         model.eval()
 

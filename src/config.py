@@ -12,7 +12,7 @@ def get_base_config():
     cfg.SOLVER.NUM_DECAYS = 3
     cfg.SOLVER.RESCALE_INTERVAL = False
     cfg.OUTPUT = CfgNode()
-    cfg.OUTPUT.BBOX_FEATURES = False
+    cfg.OUTPUT.BBOX_FEATURES = True
 
     return cfg
 
