@@ -24,8 +24,8 @@ detector is able to assign the correct color to each fruit.
 <hr />
 
 ### Main Contributions
-1) We used official implementation of [Object Centric Open Vocabulary Detection](https://github.com/hanoonaR/object-centric-ovd) along with [Detectron2](https://github.com/facebookresearch/detectron2) library and for inference.
-2) We modified the sources to obtain embeddings from the predicted bounding boxes, which can be reused with an updated vocabulary, but without re-running the detector.
+1) We used official implementation of [Object Centric Open Vocabulary Detection](https://github.com/hanoonaR/object-centric-ovd) along with [Detectron2](https://github.com/facebookresearch/detectron2) library for inference.
+2) We modified the sources to obtain embeddings from the predicted bounding boxes, which can be classified with an updated vocabulary, but without re-running the detector.
 
 <hr />
 
@@ -43,7 +43,7 @@ The minimal code for running the detector and retrieving the predictions is belo
 import cv2
 from src import load_config, load_model
 
-config = load_config("configs/COCO_OVD_RKD_PIS_WeightTransfer_8x.yaml")
+config = load_config("configs/LVIS_OVD_RKD_PIS_WeightTransfer_8x.yaml")
 object_detector = load_model(config)
 image = cv2.imread("demo/images/image_1.jpg")
 
@@ -60,11 +60,10 @@ box_features = predictions['box_features'].numpy()     # b-box CLIP-like embeddi
 
 We provide a command line tool to run a simple demo with pre-trained models:
 ```
-python demo/run_demo.py --config configs/COCO_OVD_RKD_PIS_WeightTransfer_8x.yaml --input demo/images/*.jpg --output demo/predictions --batch 2 --confidence-threshold 0.5
+python demo/run_demo.py --config configs/LVIS_OVD_RKD_PIS_WeightTransfer_8x.yaml --input demo/images/*.jpg --output demo/predictions --batch 2 --confidence-threshold 0.5
 ```
 also you may specify config options via `--opts` like
 
-* `MODEL.WEIGHTS` (str): local/s3 path to model weights
 * `MODEL.MASK_ON` (bool): flag to output object masks (default:False in order to speed up detection)
 * `MODEL.ROI_HEADS.SCORE_THRESH_TEST` (float): alternative way to set confidence threshold
 * `OUTPUT.BBOX_FEATURES` (bool): flag to additionally return clip-like box features

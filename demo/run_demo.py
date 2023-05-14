@@ -23,7 +23,7 @@ def get_parser():
     parser.add_argument("--output", '-o', required=True,
                         help="Directory to save output visualizations")
     parser.add_argument("--batch", '-b', type=int, default=1, help='Processing batch size')
-    parser.add_argument("--confidence-threshold", '-thr', type=float, default=0.5,
+    parser.add_argument("--confidence-threshold", '-thr', type=float, default=0.7,
                         help="Minimum score for instance predictions to be shown")
     parser.add_argument("--opts", default=[], nargs=argparse.REMAINDER,
                         help="Modify config options using the command-line 'KEY VALUE' pairs")
@@ -52,12 +52,12 @@ def run_on_image_batch(predictor, metadata, image_batch):
     for single_prediction, image in zip(predictions, image_batch):
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
-        visualizer = Visualizer(image, metadata)
+        vis = Visualizer(image, metadata)
 
         if "instances" in single_prediction:
             instances = single_prediction["instances"]
             # visualize predictions
-            single_vis_output = visualizer.draw_instance_predictions(predictions=instances)
+            single_vis_output = vis.draw_instance_predictions(instances)
 
             vis_output.append(single_vis_output)
 
