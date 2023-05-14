@@ -58,7 +58,7 @@ box_features = predictions['box_features'].numpy()     # b-box CLIP-like embeddi
 
 ### Inference Demo with Pre-trained Models
 
-We provide jupyter-notebook [OVD_Demo](demo/OVD_Demo.ipynb) and a command line tool to run a simple demo with pre-trained models:
+We provide jupyter-notebook [OVD_Demo](demo/OVD_Demo.ipynb) and a command line script [run_demo](demo/run_demo.py) to show the results of the pre-trained models:
 ```
 python demo/run_demo.py --config configs/LVIS_OVD_RKD_PIS_WeightTransfer_8x.yaml --input demo/images/*.jpg --output demo/predictions --batch 2 --confidence-threshold 0.5
 ```
