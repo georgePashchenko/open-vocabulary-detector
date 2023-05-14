@@ -17,7 +17,7 @@ MODEL:
     CAT_FREQ_PATH: 'datasets/coco/zero-shot/instances_train2017_seen_2_oriorder_cat_info.json'
 DATASETS:
   TRAIN: ("coco_zeroshot_train_oriorder",)
-  TEST: ("coco_generalized_zeroshot_val",)
+  TEST: ("coco_2017_val",)
 SOLVER:
   IMS_PER_BATCH: 16 # Overall batch-size
   BASE_LR: 0.02

@@ -1,0 +1,4 @@
+boto3==1.26.101
+six==1.16.0
+opencv_python==4.7.0.72
+clip@git+https://github.com/openai/CLIP.git@a9b1bf5920416aaeaec965c25dd9e8f98c864f16
