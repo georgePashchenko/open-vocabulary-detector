@@ -1,6 +1,7 @@
-import torch
+import clip
 import json
 import numpy as np
+import torch
 from torch.nn import functional as F
 
 
@@ -45,3 +46,16 @@ def reset_cls_test(model, cls_path, num_classes):
     zs_weight = zs_weight.to(model.device)
     del model.roi_heads.box_predictor.cls_score.zs_weight
     model.roi_heads.box_predictor.cls_score.zs_weight = zs_weight
+
+
+def dump_clip_embeddings(vocabulary, prompt='a photo of'):
+    sentences = [f'{prompt} {word}' for word in vocabulary]
+
+    device = "cuda" if torch.cuda.is_available() else 'cpu'
+
+    model, preprocess = clip.load("ViT-B/32", device=device)
+    text = clip.tokenize(sentences).to(device)
+    with torch.no_grad():
+        text_features = model.encode_text(text).float().T
+
+    return text_features
